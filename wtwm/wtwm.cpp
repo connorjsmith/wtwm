@@ -3,20 +3,36 @@
 
 #include "stdafx.h"
 #include "wtwm.h"
+#include <iostream>
 
 using namespace std;
 
 /* Globals */
+string path_keybindings = "./keybindings.config";
 HHOOK kbHook; // used to propagate the keypress to the rest of the system
+// Keybindings keybindings = null;
+// bool(*keybindings[2][2][2][2][256])(); // [shift][ctrl][alt][win][ASCII code]
 
-/* Function Definitions */
-void PopulateModifierKeyState(bool& winHeld, bool& ctrlHeld, bool& altHeld) {
-	winHeld =  (GetAsyncKeyState(VK_LWIN) != 0)     || (GetAsyncKeyState(VK_RWIN) != 0);
-	ctrlHeld = (GetAsyncKeyState(VK_LCONTROL) != 0) || (GetAsyncKeyState(VK_RCONTROL != 0));
-	altHeld =  (GetAsyncKeyState(VK_MENU) != 0);
+/* Main Event Loop and Entry Point */
+int main() {
+	// keybindings = new Keybindings(path_keybindings);
+	MSG msg;
+	int BRET;
+	kbHook = SetWindowsHookEx(WH_KEYBOARD_LL, wtwm::hook_KeyboardHandler, nullptr, 0);
+	while ((BRET = GetMessage(&msg, NULL, NULL, NULL)) != 0) {
+		if (BRET < 0) {
+			cout << "Error" << endl;
+			break;
+		}
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+	UnhookWindowsHookEx(kbHook);
+    return 0;
 }
 
-LRESULT CALLBACK hook_KeyboardHandler(int nCode, WPARAM wParam, LPARAM lParam) {
+/* Function Definitions */
+LRESULT CALLBACK wtwm::hook_KeyboardHandler(int nCode, WPARAM wParam, LPARAM lParam) {
 	if (nCode < 0) {
 		return CallNextHookEx(kbHook, nCode, wParam, lParam);
 	}
@@ -31,6 +47,9 @@ LRESULT CALLBACK hook_KeyboardHandler(int nCode, WPARAM wParam, LPARAM lParam) {
 		if (ctrlHeld) {
 			cout << "Ctrl + ";
 		}
+		if (altHeld) {
+			cout << "Alt + ";
+		}
 		cout << keypress->vkCode << endl;
 	} else if (wParam == WM_SYSKEYDOWN) {
 		KeyInfo* keypress = (KeyInfo*)lParam;
@@ -39,19 +58,9 @@ LRESULT CALLBACK hook_KeyboardHandler(int nCode, WPARAM wParam, LPARAM lParam) {
 	// Allow the key to propagate to the rest of the system
 	return CallNextHookEx(kbHook, nCode, wParam, lParam);
 }
-int main() {
-	MSG msg;
-	int BRET;
-	kbHook = SetWindowsHookEx(WH_KEYBOARD_LL, hook_KeyboardHandler, nullptr, 0);
-	cout << "Set Keyboard hook" << endl;
-	while ((BRET = GetMessage(&msg, NULL, NULL, NULL)) != 0) {
-		if (BRET < 0) {
-			cout << "Error" << endl;
-			break;
-		}
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-	}
-	UnhookWindowsHookEx(kbHook);
-    return 0;
+
+void wtwm::PopulateModifierKeyState(bool& winHeld, bool& ctrlHeld, bool& altHeld) {
+	winHeld =  (GetAsyncKeyState(VK_LWIN) != 0)     || (GetAsyncKeyState(VK_RWIN) != 0);
+	ctrlHeld = (GetAsyncKeyState(VK_LCONTROL) != 0) || (GetAsyncKeyState(VK_RCONTROL != 0));
+	altHeld =  (GetAsyncKeyState(VK_MENU) != 0);
 }

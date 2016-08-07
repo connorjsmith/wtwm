@@ -2,9 +2,13 @@
 #include "stdafx.h"
 
 // Probably only needed for debugging
-#include <iostream>
 #include <string>
 
+
+#define ERROR_CODE -1
 typedef KBDLLHOOKSTRUCT KeyInfo;
 
-LRESULT CALLBACK hook_KeyboardHandler(int, WPARAM, LPARAM);
+namespace wtwm {
+	LRESULT CALLBACK hook_KeyboardHandler(int, WPARAM, LPARAM);
+	void PopulateModifierKeyState(bool& winHeld, bool& ctrlHeld, bool& altHeld);
+}
