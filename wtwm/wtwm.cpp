@@ -3,12 +3,13 @@
 
 #include "stdafx.h"
 #include "wtwm.h"
+#include "parse.h"
 #include <iostream>
 
 using namespace std;
 
 /* Globals */
-string path_keybindings = "./keybindings.config";
+string path_keybindings = "keybindings.cfg";
 HHOOK kbHook; // used to propagate the keypress to the rest of the system
 // Keybindings keybindings = null;
 // bool(*keybindings[2][2][2][2][256])(); // [shift][ctrl][alt][win][ASCII code]
@@ -16,6 +17,10 @@ HHOOK kbHook; // used to propagate the keypress to the rest of the system
 /* Main Event Loop and Entry Point */
 int main() {
 	// keybindings = new Keybindings(path_keybindings);
+
+	load_config(path_keybindings.c_str());
+
+	return 0;
 	MSG msg;
 	int BRET;
 	kbHook = SetWindowsHookEx(WH_KEYBOARD_LL, wtwm::hook_KeyboardHandler, nullptr, 0);

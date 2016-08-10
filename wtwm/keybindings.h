@@ -1,5 +1,3 @@
-// TODO: Take the sxhkd source code for parsing key values
-//		 Put it into a OO-like class for easier usage
 #pragma once
 #include "stdafx.h"
 #include <map>
