@@ -11,7 +11,5 @@
 #include <tchar.h>
 #include <Windows.h>
 #include <string>
+#include <vector>
 #define ERROR_CODE -1
-
-
-// TODO: reference additional headers your program requires here

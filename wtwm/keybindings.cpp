@@ -1,61 +1,78 @@
-// TODO: Make this a keybindings class, add lookup etc. for functions
-//		 Be able to read starting definitions from a file when specified
 #include "stdafx.h"
 #include "keybindings.h"
 #include <iostream>
 
+std::unordered_map<std::string, short> VK_Mapping({
+		{"A",0x41},
+		{"B",0x42},
+		{"C",0x43},
+		{"D",0x44},
+		{"E",0x45},
+		{"F",0x46},
+		{"G",0x47},
+		{"H",0x48},
+		{"I",0x49},
+		{"J",0x4A},
+		{"K",0x4B},
+		{"L",0x4C},
+		{"M",0x4D},
+		{"N",0x4E},
+		{"O",0x4F},
+		{"P",0x50},
+		{"Q",0x51},
+		{"R",0x52},
+		{"S",0x53},
+		{"T",0x54},
+		{"U",0x55},
+		{"V",0x56},
+		{"W",0x57},
+		{"X",0x58},
+		{"Y",0x59},
+		{"Apps",VK_APPS},
+		{"F1",VK_F1},
+		{"F2",VK_F2},
+		{"F3",VK_F3},
+		{"F4",VK_F4},
+		{"F5",VK_F5},
+		{"F6",VK_F6},
+		{"F7",VK_F7},
+		{"F8",VK_F8},
+		{"F9",VK_F9},
+		{"F10",VK_F10},
+		{"F11",VK_F11},
+		{"F12",VK_F12},
+});
 
-void wtwm::populateKeybindings(const std::string& path) {
-	std::ifstream cfgFile(path, std::ifstream::in);
-	std::string line;
-	while (std::getline(cfgFile, line)) {
-		// ignore comments
-		if (line.find_first_not_of(wtwm::whitespace) != wtwm::commentCharacter) {
-			bool success = wtwm::addKeybinding(line);
-			if (!success) {
-				std::cout << "ERROR: Failed to parse the following line in config file '" << path << "':" << std::endl;
-				std::cout << line << std::endl;
-				exit(ERROR_CODE);
-			}
-		}
-	}
+wtwm::Hotkey::Hotkey(std::string hotkey) {
+	// TODO: Parse the hotkey string for modifiers, keypresses
+	// probably use a stringstream?
 }
-bool wtwm::addKeybinding(const std::string& binding) {
-	std::stringstream parseableBinding(binding);
-	std::string token;
-	bool shift, ctrl, alt, win, capsLock;
-	short key = 0;
-	while (parseableBinding >> token) {
-		if (token.compare(wtwm::shiftStr) == 0) {
-			shift = true;
-		}
-		else if (token.compare(wtwm::capsStr) == 0) {
-			capsLock = true;
-		}
-		else if (token.compare(wtwm::ctrlStr) == 0) {
-			ctrl = true;
-		}
-		else if (token.compare(wtwm::altStr) == 0) {
-			alt = true;
-		}
-		else if (token.compare(wtwm::winStr) == 0) {
-			win = true;
-		}
-		else {
-			key = wtwm::getVirtualKey(token);
-			if (key <= 0) return false; // no virtual key mapping for this item
-		}
-	}
-	if (key == 0) {
-		return false; // no ascii binding associated with this line
-	}
-	return true;
+
+const std::string wtwm::Hotkey::hashString() {
+	std::stringstream ss;
+	// TODO: fix this hash
+	if (alt) ss << wtwm::altStr;
+	if (ctrl) ss << wtwm::ctrlStr;
+	if (shift) ss << wtwm::shiftStr;
+	if (win) ss << wtwm::winStr;
+	if (menu) ss << wtwm::menuStr;
+	if (caps) ss << wtwm::capsStr;
+	return ss.str();
 }
-short wtwm::getVirtualKey(const std::string& token) {
-	if (token.length() == 1) {
-		std::string temp = "A";
-		temp[0] = toupper(token[0]);
-		return wtwm::VK_Mapping[temp];
+
+// TOOD: Move this to the functions.h file
+fn_ptr createFunction(std::string command) {
+	return nullptr;
+}
+
+bool wtwm::Hotkeys::bindHotkey(wtwm::Hotkey& hotkey, fn_ptr command) {
+	// TODO: add this to the dictionary
+	const std::string hash = hotkey.hashString();
+	if (keymap.find(hash) == keymap.end()) {
+		keymap[hash] = command;
+		return true;
 	}
-	return wtwm::VK_Mapping[token];
+	// hotkey was already bound
+	std::cout << "Hotkey " << hash << " was bound twice.";
+	return false;
 }

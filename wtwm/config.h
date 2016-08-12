@@ -26,6 +26,10 @@
 
 #pragma once
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+
 #define MAXLEN				 256
 #define RELEASE_PREFIX       '@'
 #define REPLAY_PREFIX        '~'
@@ -40,7 +44,6 @@
 #define SEQ_SEP              ","
 #define SEQ_NONE             '_'
 
-typedef struct chunk_t chunk_t;
 class Chunk {
 public:
 	char text[2 * MAXLEN];
@@ -52,8 +55,10 @@ public:
 	Chunk *next;
 };
 
-void load_config(const char *config_file);
-void process_hotkey(char *hotkey_string, char *command_string);
+char *rightmost_graph(char*);
+char *leftmost_graph(char*);
+std::vector<std::pair<std::string, std::string>> load_config(const std::string);
+void process_hotkey(std::vector<std::pair<std::string, std::string>>& keybindingPairs, char *hotkey_string, char *command_string);
 char *get_token(char *dst, char *ign, char *src, char *sep);
 void render_next(Chunk *chunks, char *dest);
 Chunk *extract_chunks(char *s);

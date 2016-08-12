@@ -3,23 +3,37 @@
 
 #include "stdafx.h"
 #include "wtwm.h"
-#include "parse.h"
+#include "config.h" // parsing config files => pair<string, string>
+// #include "function.h" // parsing pair<string, string> => pair<string, fn_ptr>
+// #include "hotkey.h" // parsing pair<string, fn_ptr> => pair<Hotkey, fn_ptr>
+#include "keybindings.h"
 #include <iostream>
 
 using namespace std;
 
 /* Globals */
-string path_keybindings = "keybindings.cfg";
+string default_path_keybindings = "keybindings.cfg";
+wtwm::Hotkeys hotkeys;
 HHOOK kbHook; // used to propagate the keypress to the rest of the system
-// Keybindings keybindings = null;
-// bool(*keybindings[2][2][2][2][256])(); // [shift][ctrl][alt][win][ASCII code]
 
 /* Main Event Loop and Entry Point */
 int main() {
-	// keybindings = new Keybindings(path_keybindings);
+	// TODO: read commandline switch for an override config
+	vector<pair<string, string>> keybindingPairs = load_config(default_path_keybindings);
+	/*vector<pair<string, fn_ptr>> keybindingFuncs = parseFunctions(keybindingPairs);
+	vector<pair<wtwm::Hotkey, fn_ptr>> hotkeyFunctions = parseHotkeys(keybindingFuncs);
+	keybindingPairs.clear();
+	keybindingFuncs.clear();
+	for (auto binding : hotkeyFunctions) {
+		bool success = hotkeys.bindHotkey(binding.first, binding.second);
+		if (!success) {
+			return ERROR_CODE;
+		}
+	}
 
-	load_config(path_keybindings.c_str());
-
+	if (keybindingPairs.empty()) {
+		return ERROR_CODE;
+	}*/
 	return 0;
 	MSG msg;
 	int BRET;

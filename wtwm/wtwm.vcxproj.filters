@@ -27,10 +27,10 @@
     <ClInclude Include="wtwm.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parse.h">
+    <ClInclude Include="keybindings.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="keybindings.h">
+    <ClInclude Include="config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,7 +44,7 @@
     <ClCompile Include="keybindings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="parse.cpp">
+    <ClCompile Include="config.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
