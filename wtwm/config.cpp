@@ -129,7 +129,7 @@ void process_hotkey(std::vector<std::pair<std::string, std::string>>& bindingPai
 	while ((hk_chunks == NULL || hotkey[0] != '\0') && (cm_chunks == NULL || command[0] != '\0')) {
 
 		bindingPairs.push_back({ hotkey, command });
-		// TODO: Fix infinite loop here with single commands like "ctrl+1"
+		if (hk_chunks == NULL && cm_chunks == NULL) break;
 		render_next(hk_chunks, hotkey);
 		render_next(cm_chunks, command);
 	}
