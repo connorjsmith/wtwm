@@ -12,5 +12,6 @@
 #include <Windows.h>
 #include <string>
 #include <vector>
+#include <functional>
 #define ERROR_CODE -1
-typedef void(*fn_ptr)(void);
+typedef std::function<void()> fn_ptr;

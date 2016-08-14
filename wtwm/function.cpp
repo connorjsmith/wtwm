@@ -6,12 +6,16 @@
 
 using namespace std;
 
-fn_ptr cmd_function(const string& command) {
+fn_ptr cmd_function(const string command) {
 	// TODO: how to create a closure with the needed parameters?	
-	return nullptr;
+	auto ret = [=]()->void
+	{
+		system(command.c_str());
+	};
+	return ret;
 }
 
-fn_ptr wtwm_function(const string& command) {
+fn_ptr wtwm_function(const string command) {
 	// TODO: how to create a closure with the needed parameters and return it?
 	stringstream ss_command(command);
 	string command_base;
@@ -20,7 +24,7 @@ fn_ptr wtwm_function(const string& command) {
 	return nullptr;
 }
 
-fn_ptr get_function(const string& command) {
+fn_ptr get_function(const string command) {
 	int length = command.length();
 	if (starts_with(command, "wtwm::")) {
 		return wtwm_function(command.substr(6, length - 6));
@@ -42,5 +46,5 @@ vector<pair<string, fn_ptr>> parseFunctions(vector<pair<string, string>>& keybin
 		if (function == nullptr) return vector<pair<string, fn_ptr>>();
 		functionPairs.push_back({ p.first, function });
 	}
-	return vector<pair<string, fn_ptr>>();
+	return functionPairs;
 }
