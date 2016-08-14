@@ -2,7 +2,9 @@
 #include "keybindings.h"
 #include <iostream>
 
-std::unordered_map<std::string, short> VK_Mapping({
+using namespace std;
+
+unordered_map<string, short> VK_Mapping({
 		{"A",0x41},
 		{"B",0x42},
 		{"C",0x43},
@@ -43,13 +45,13 @@ std::unordered_map<std::string, short> VK_Mapping({
 		{"F12",VK_F12},
 });
 
-wtwm::Hotkey::Hotkey(std::string hotkey) {
+wtwm::Hotkey::Hotkey(string hotkey) {
 	// TODO: Parse the hotkey string for modifiers, keypresses
 	// probably use a stringstream?
 }
 
-const std::string wtwm::Hotkey::hashString() {
-	std::stringstream ss;
+const string wtwm::Hotkey::hashString() {
+	stringstream ss;
 	// TODO: fix this hash
 	if (alt) ss << wtwm::altStr;
 	if (ctrl) ss << wtwm::ctrlStr;
@@ -61,18 +63,18 @@ const std::string wtwm::Hotkey::hashString() {
 }
 
 // TOOD: Move this to the functions.h file
-fn_ptr createFunction(std::string command) {
+fn_ptr createFunction(string command) {
 	return nullptr;
 }
 
 bool wtwm::Hotkeys::bindHotkey(wtwm::Hotkey& hotkey, fn_ptr command) {
 	// TODO: add this to the dictionary
-	const std::string hash = hotkey.hashString();
+	const string hash = hotkey.hashString();
 	if (keymap.find(hash) == keymap.end()) {
 		keymap[hash] = command;
 		return true;
 	}
 	// hotkey was already bound
-	std::cout << "Hotkey " << hash << " was bound twice.";
+	cout << "Hotkey " << hash << " was bound twice." << endl;
 	return false;
 }

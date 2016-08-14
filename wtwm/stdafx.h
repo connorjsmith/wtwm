@@ -13,3 +13,4 @@
 #include <string>
 #include <vector>
 #define ERROR_CODE -1
+typedef void(*fn_ptr)(void);

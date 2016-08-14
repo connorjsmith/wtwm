@@ -5,7 +5,6 @@
 #include <sstream>
 
 
-typedef void(*fn_ptr)(void);
 
 namespace wtwm {
 	// Constants
