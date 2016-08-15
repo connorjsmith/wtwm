@@ -25,7 +25,7 @@
  */
 
 #include "stdafx.h"
-#include "config.h"
+#include "parse_config.h"
 #include <iostream>
 
 

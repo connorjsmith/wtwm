@@ -2,8 +2,8 @@
 
 #include "stdafx.h"
 #include "wtwm.h"
-#include "config.h" // parsing config files => pair<string, string>
-#include "function.h" // parsing pair<string, string> => pair<string, fn_ptr>
+#include "parse_config.h" // parsing config files => pair<string, string>
+#include "parse_functions.h" // parsing pair<string, string> => pair<string, fn_ptr>
 // #include "hotkey.h" // parsing pair<string, fn_ptr> => pair<Hotkey, fn_ptr>
 #include "keybindings.h"
 #include <iostream>
