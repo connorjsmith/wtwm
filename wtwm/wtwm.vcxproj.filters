@@ -39,6 +39,9 @@
     <ClInclude Include="parse_functions.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="wtwm_functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -57,6 +60,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="parse_functions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="wtwm_functions.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -148,6 +148,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="wtwm.h" />
+    <ClInclude Include="wtwm_functions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="parse_functions.cpp" />
@@ -161,6 +162,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="wtwm.cpp" />
+    <ClCompile Include="wtwm_functions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
