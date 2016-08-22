@@ -95,7 +95,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS</PreprocessorDefinitions>
@@ -141,28 +141,16 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="parse_functions.h" />
-    <ClInclude Include="helpers.h" />
-    <ClInclude Include="keybindings.h" />
-    <ClInclude Include="parse_config.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="tree.h" />
+    <ClInclude Include="window.h" />
     <ClInclude Include="wtwm.h" />
-    <ClInclude Include="wtwm_functions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="parse_functions.cpp" />
-    <ClCompile Include="helpers.cpp" />
-    <ClCompile Include="keybindings.cpp" />
-    <ClCompile Include="parse_config.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="tree.cpp" />
+    <ClCompile Include="window.cpp" />
     <ClCompile Include="wtwm.cpp" />
-    <ClCompile Include="wtwm_functions.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
